@@ -20,6 +20,11 @@ import javax.persistence.TemporalType;
 
 import com.kazale.pontointeligente.api.enums.TipoEnum;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "lancamento")
 public class Lancamento implements Serializable {
@@ -67,72 +72,9 @@ public class Lancamento implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Lancamento [id=" + id + ", data=" + data + ", descricao=" + descricao + ", localizacao=" + localizacao + ", dataCriacao ="
-				+ dataCriacao + ", dataAtualizacao=" + dataAtualizacao + ", tipo=" + tipo + ", funcionario=" + funcionario + "]";
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public String getLocalizacao() {
-		return localizacao;
-	}
-
-	public void setLocalizacao(String localizacao) {
-		this.localizacao = localizacao;
-	}
-
-	public Date getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
-	public Date getDataAtualizacao() {
-		return dataAtualizacao;
-	}
-
-	public void setDataAtualizacao(Date dataAtualizacao) {
-		this.dataAtualizacao = dataAtualizacao;
-	}
-
-	public TipoEnum getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoEnum tipo) {
-		this.tipo = tipo;
-	}
-
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
+		return "Lancamento [id=" + id + ", data=" + data + ", descricao=" + descricao + ", localizacao=" + localizacao
+				+ ", dataCriacao =" + dataCriacao + ", dataAtualizacao=" + dataAtualizacao + ", tipo=" + tipo
+				+ ", funcionario=" + funcionario + "]";
 	}
 
 }

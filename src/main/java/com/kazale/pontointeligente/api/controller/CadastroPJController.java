@@ -39,20 +39,20 @@ public class CadastroPJController {
 	EmpresaService empresaService;
 
 	@PostMapping
-	public ResponseEntity<Response<CadastroPJDto>> cadastrar(@Valid @RequestBody CadastroPJDto cadastroPJDto, BindingResult result)
-			throws NoSuchAlgorithmException {
+	public ResponseEntity<Response<CadastroPJDto>> cadastrar(@Valid @RequestBody CadastroPJDto cadastroPJDto,
+			BindingResult result) throws NoSuchAlgorithmException {
 		log.info("Cadastrando PJ: {}", cadastroPJDto.toString());
 		Response<CadastroPJDto> response = new Response<>();
 
 		this.validarDadosExistentes(cadastroPJDto, result);
-		Empresa empresa = this.converterDtoParaEmpresa(cadastroPJDto);
-		Funcionario funcionario = this.converterDtoParaFuncionario(cadastroPJDto, result);
-
 		if (result.hasErrors()) {
 			log.error("Erro validando dados de cadastro PJ: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
+
+		Empresa empresa = this.converterDtoParaEmpresa(cadastroPJDto);
+		Funcionario funcionario = this.converterDtoParaFuncionario(cadastroPJDto);
 
 		this.empresaService.persistir(empresa);
 		funcionario.setEmpresa(empresa);
@@ -78,7 +78,8 @@ public class CadastroPJController {
 		return empresa;
 	}
 
-	private Funcionario converterDtoParaFuncionario(CadastroPJDto cadastroPJDto, BindingResult result) throws NoSuchAlgorithmException {
+	private Funcionario converterDtoParaFuncionario(CadastroPJDto cadastroPJDto)
+			throws NoSuchAlgorithmException {
 		Funcionario funcionario = new Funcionario();
 		funcionario.setNome(cadastroPJDto.getNome());
 		funcionario.setEmail(cadastroPJDto.getEmail());
@@ -87,7 +88,7 @@ public class CadastroPJController {
 		funcionario.setSenha(PasswordUtils.gerarBCrypt(cadastroPJDto.getSenha()));
 		return funcionario;
 	}
-	
+
 	private CadastroPJDto converterCadastroPJDto(Funcionario funcionario) {
 		CadastroPJDto cadastroPJDto = new CadastroPJDto();
 		cadastroPJDto.setId(funcionario.getId());
